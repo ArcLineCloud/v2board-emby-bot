@@ -17,7 +17,7 @@ class V2BoardAPI:
         self.headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36'
         }
 
 
@@ -28,9 +28,11 @@ class V2BoardAPI:
 
         url = f"{self.base_url}/passport/auth/login"
         data = { "email": self.email, "password": self.password }
+        print(url, data)
 
         try:
             response = requests.post(url, json=data, headers=self.headers)
+            print(response.status_code, response.json())
             if response.status_code == 200:
                 result = response.json()
                 if 'data' in result and 'auth_data' in result['data']:

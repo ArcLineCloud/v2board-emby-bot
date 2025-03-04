@@ -525,6 +525,9 @@ async def create_emby(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 'user_id': result['user_id']
             }
             save_user_data(user_id, user_data[user_id])
+            emby_info = user_data[user_id]['emby']
+
+            server_url_template = '\n'.join(url.strip() for url in os.getenv('EMBY_SERVER_URL_TEMPLATE').strip('"').split('&&'))
 
             message = f"""
 <b>{user.mention_html()}, 欢迎使用 Prism Media Server</b>
@@ -537,7 +540,7 @@ async def create_emby(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 下面是您的 Emby 服务器信息：
 
-{os.getenv('EMBY_SERVER_URL_TEMPLATE')}
+{server_url_template}
 服务器端口: 443
 
 请妥善保管您的账号信息，忘记密码只能通过删除账号重新创建。
@@ -566,6 +569,8 @@ async def emby_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
     emby_info = user_data[update.effective_user.id]['emby']
     user = update.effective_user
 
+    server_url_template = '\n'.join(url.strip() for url in os.getenv('EMBY_SERVER_URL_TEMPLATE').strip('"').split('&&'))
+
     message = f"""
 <b>{user.mention_html()}, 欢迎使用 Prism Media Server</b>
 
@@ -577,7 +582,7 @@ async def emby_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 下面是您的 Emby 服务器信息：
 
-{os.getenv('EMBY_SERVER_URL_TEMPLATE')}
+{server_url_template}
 服务器端口: 443
 
 请妥善保管您的账号信息，忘记密码只能通过删除账号重新创建。

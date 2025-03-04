@@ -1,0 +1,11 @@
+services:
+  bot:
+    build: .
+    container_name: v2board-emby-bot
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./logs:/app/logs
+      - ./user_data:/app/user_data
+      - ./.env:/app/.env
